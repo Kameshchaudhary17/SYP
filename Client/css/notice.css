@@ -1,0 +1,85 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-image: url("../Images/Background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+.Menu{
+    display: flex;
+    height: 100px;
+    width: 100%;
+    background: #8D9BAD;
+    align-items: center;
+    justify-content: center;
+    gap: 650px;
+}
+.Menu ul{
+    display: flex;
+    gap: 30px;
+}
+li{
+    list-style: none;
+}
+.Menu ul a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+
+    &:hover{
+        color:#0f5662;
+        
+    }
+    &::after{
+        content:"";
+        width: 0px;
+        position: absolute;
+        left: 0;
+        height: 0;
+        bottom: -5px;
+        transition: width 0.3s ease;
+    }
+    &:hover::after{
+        height: 2px;
+        background-color: #0f5662;
+        width: 100%;
+    }
+}
+
+.logo img{
+    width: 200px;
+    height: 200px;
+}
+.add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    margin-left: 80px;
+    gap: 30px;
+}
+.container h1{
+    color: #ffffff;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.board{
+    width: 170vh;
+    height: 140px;
+    background-color: #8D9BAD;
+    display: flex;
+    border-radius: 20px;
+    padding: 10px;
+    color: #0f5662;
+    font-size: 20px;
+}
