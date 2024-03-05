@@ -27,18 +27,36 @@
 
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
+        document.getElementById('signin-form').addEventListener('submit', async function(event) {
             event.preventDefault();
-            const formData = new FormData(this);
-            fetch("/login", {
-                method: "POST",
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => console.error("Error:", error));
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:8030/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_email: email, password: password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                   
+                    console.log(data.message);
+                   
+                    window.location.href = 'home.html'; 
+                   
+                } else {
+                    console.error(data.error);
+                   
+                }
+            } catch (error) {
+                console.error('Error:', error);
+               
+            }
         });
     </script>
 </body>

@@ -27,20 +27,40 @@
 
     
     <script>
-        document.getElementById("signupForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            const formData = new FormData(this);
+       const handleSubmit = async (e) => {
+      e.preventDefault();
 
-            fetch("/signup", {
-                method: "POST",
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => console.error("Error:", error));
+      const formData = new FormData(e.target);
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      try {
+        const response = await fetch('http://localhost:8000/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonData)
         });
+
+        const data = await response.json();
+        console.log(data);
+        
+        if (response.ok) {
+         
+          window.location.href = 'sign.html'; 
+        } else {
+          console.error('Signup failed:', data.error);
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    document.getElementById('signup-form').addEventListener('submit', handleSubmit);
     </script>
 </body>
 
