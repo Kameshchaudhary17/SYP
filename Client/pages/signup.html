@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/signup.css">
     <title>Sign Up</title>
 </head>
-
 <body>
 
     <div class="signup_container">
@@ -31,25 +29,17 @@
       e.preventDefault();
 
       const formData = new FormData(e.target);
-      const jsonData = {};
-      formData.forEach((value, key) => {
-        jsonData[key] = value;
-      });
 
       try {
         const response = await fetch('http://localhost:8030/signup', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(jsonData)
+          body: formData
         });
 
         const data = await response.json();
         console.log(data);
         
         if (response.ok) {
-         
           window.location.href = 'sign.html'; 
         } else {
           console.error('Signup failed:', data.error);
@@ -63,5 +53,4 @@
     document.getElementById('signupForm').addEventListener('submit', handleSubmit);
     </script>
 </body>
-
 </html>

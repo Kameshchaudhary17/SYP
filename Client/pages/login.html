@@ -10,54 +10,47 @@
 
 <body>
     <div class="login_container">
-        <form id="loginForm" class="login" method="POST" action="/login">
+        <div class="login_image">
+            <img src="../Images/background.png" alt="background image">
+        </div>
+        <form id="loginForm" class="login">
             <h1>Log in to Student Athlete Hub</h1>
-            <input type="text" placeholder="Email" name="email">
-            <input type="password" placeholder="Password" name="password">
+            <input type="text" placeholder="Email" name="email" id="email">
+            <input type="password" placeholder="Password" name="password" id="password">
             <button type="submit" class="login_btn">Log in</button>
             <div class="signup">
                 <p>Do not have an account?</p>
                 <a href="/signup">Sign Up now</a>
             </div>
         </form>
-        <div class="login_image">
-            <img src="../Images/background.png" alt="background image">
-        </div>
     </div>
 
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
+        const handleSubmit = async (e) => {
+            e.preventDefault();
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const formData = new FormData(e.target);
 
             try {
                 const response = await fetch('http://localhost:8030/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ user_email: email, password: password })
+                    body: formData
                 });
 
                 const data = await response.json();
                 if (response.ok) {
-                   
                     console.log(data.message);
-                   
                     window.location.href = 'home.html'; 
-                   
                 } else {
                     console.error(data.error);
-                   
                 }
             } catch (error) {
                 console.error('Error:', error);
-               
             }
-        });
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', handleSubmit);
     </script>
 </body>
 
