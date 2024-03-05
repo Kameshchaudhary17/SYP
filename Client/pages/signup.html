@@ -9,27 +9,39 @@
 </head>
 
 <body>
-    <script defer>
-        
 
-
-    </script>
     <div class="signup_container">
         <div class="signup_image">
             <img src="../Images/background.png" alt="background image">
         </div>
-        <form action="" class="signup">
+        <form id="signupForm" class="signup">
             <h1>Sign Up to Student Athlete Hub</h1>
             <input type="text" placeholder="Enter Name" name="userName">
             <input type="text" placeholder="Email" name="email">
-            <input type="text" placeholder="Password" name="password">
+            <input type="password" placeholder="Password" name="password">
             <input type="text" placeholder="Contact" name="contactNumber">
-            <input class="file" type="file">
-            <button>Sign Up</button>
+            <input class="file" type="file" name="profileImage">
+            <button type="submit">Sign Up</button>
         </form>
-
-
     </div>
+
+    
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch("/signup", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
 </body>
 
 </html>
