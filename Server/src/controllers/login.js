@@ -21,8 +21,19 @@ const login = (req, res) => {
         }
     })
 
+    const user = result[0];
 
-
-
+    try {
+        const passwordMatch = bcrypt.compareSync(password, user.password);
+        if (!passwordMatch) {
+            return res.status(401).json({ error: "Invalid password" });
+        }
+        // Password is correct, login successful
+        return res.status(200).json({ message: "Login successful" });
+    } catch (error) {
+        return res.status(500).json({ error: "Error comparing passwords" });
+    }
 
 }
+
+module.exports = login
