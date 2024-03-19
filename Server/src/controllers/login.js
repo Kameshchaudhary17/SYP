@@ -22,6 +22,7 @@ const login = (req, res) => {
     })
 
     const user = result[0];
+    
 
     try {
         const passwordMatch = bcrypt.compareSync(password, user.password);
